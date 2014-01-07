@@ -1,12 +1,12 @@
 require 'thread'
-
 class Timer
   def initialize
     puts "timer ready"
     @should_tick = true
   end
   def every x , &block
-    while @should_tick
+    #while @should_tick 
+    80.times do
       puts "try tick"
       sleep(x)
       yield block
@@ -92,7 +92,7 @@ class Producer
 end
 
 semaphore = Mutex.new
-
+profile_data = JRuby::Profiler.profile do
 buffer = Buffer.new
 consumers_threads = Array.new
 0.upto(10) do |x|
@@ -111,4 +111,6 @@ producers_threads = Array.new
   end
 end
 
-sleep(400)
+sleep(30)
+end
+
